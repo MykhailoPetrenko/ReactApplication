@@ -15,8 +15,11 @@ export default function Main() {
   const [users, setUsers] = useState(usersInitial);
   const [selectedUser, setSelectedUser] = useState({});
 
-  const addUser = () => {
-    setUsers([...users, { idUser: users[users.length - 1].idUser + 1, firstName: 'aaa', lastName: 'bbb' }]);
+  const addUser = (event) => {
+    event.preventDefault();
+    const firstName = event.target.firstName.value;
+    const lastName = event.target.lastName.value;
+    setUsers([...users, { idUser: users[users.length - 1].idUser + 1, firstName, lastName }]);
   };
   const setCurrentlySelectedUser = (user) => {
     setSelectedUser(user);
@@ -24,14 +27,7 @@ export default function Main() {
   const deleteUser = (user) => {
     setUsers(users.filter((u) => u.idUser !== user.idUser));
   };
-  /*
-  Object.keys(data)
-      .sort()
-      .forEach(function(v, i) {
-          console.log(v, data[v]);
-       });
 
-   */
   const sortUsers = (columnName) => {
     const f = columnName.charAt(0).toLowerCase().concat(columnName.slice(1).split(/\s/).join(''));
     setUsers(users.sort((a, b) => ((a[f] > b[f]) ? 1 : -1)).map((u) => u));
