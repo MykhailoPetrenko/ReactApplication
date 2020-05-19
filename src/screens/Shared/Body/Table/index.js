@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import Thead from './Thead';
 import Tbody from './TRow';
 
-export default function Table({ users, setSelectedUser, selectedUser }) {
+export default function Table({
+  users, setSelectedUser, selectedUser, deleteUser, sortUsers,
+}) {
   return (
     <table>
-      <Thead columnsNames={['id', 'First name', 'Last name']} />
+      <Thead columnsNames={['id', 'First Name', 'Last Name']} sortUsers={sortUsers} />
       <tbody>
         {users.map((u) => (
           <Tbody
@@ -14,6 +16,7 @@ export default function Table({ users, setSelectedUser, selectedUser }) {
             selectedUser={selectedUser}
             user={u}
             setSelectedUser={setSelectedUser}
+            deleteUser={deleteUser}
           />
         ))}
       </tbody>
@@ -29,4 +32,6 @@ Table.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
   }).isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  sortUsers: PropTypes.func.isRequired,
 };
